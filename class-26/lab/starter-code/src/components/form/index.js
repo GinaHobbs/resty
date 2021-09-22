@@ -1,15 +1,20 @@
 import './form.scss';
+import React, { useState } from 'react';
 
 function Form(props) {
 
+  const [formData, setFormData] = useState('');
+
   const handleSubmit = e => {
     e.preventDefault();
-    const formData = {
-      method:'GET',
-      // url: 'https://pokeapi.co/api/v2/pokemon',
-      url: e.target.value
-    };
+    console.log(formData)
     props.handleApiCall(formData);
+  }
+
+  function handleChange(e) {
+    const { name, value } = e.target
+    setFormData({...formData, [name]:value})
+    console.log(formData)
   }
 
   return(
@@ -17,14 +22,14 @@ function Form(props) {
         <form onSubmit={handleSubmit}>
           <label >
             <span>URL: </span>
-            <input name='url' type='text' />
+            <input name='url' type='text' onChange={handleChange}/>
             <button type="submit">GO!</button>
           </label>
           <label className="methods">
-            <button id="get">GET</button>
-            <button id="post">POST</button>
-            <button id="put">PUT</button>
-            <button id="delete">DELETE</button>
+            <button id='get' name='method' type='radio' value='get' onClick={handleChange}>GET</button>
+            <button id='post' name='method' type='radio' value='post' onClick={handleChange}>POST</button>
+            <button id='put' name='method' type='radio' value='put' onClick={handleChange}>PUT</button>
+            <button id='delete' name='method' type='radio' value='delete' onClick={handleChange}>DELETE</button>
           </label>
           <input type='text' name='JSON' placeholder='JSON'/>
         </form>
