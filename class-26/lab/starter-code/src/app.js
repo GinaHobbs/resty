@@ -1,4 +1,5 @@
 import React from 'react';
+import request from 'superagent'
 
 import './app.scss';
 
@@ -16,18 +17,23 @@ class App extends React.Component {
     this.state = {
       data: null,
       requestParams: {},
+      select: false
     };
   }
 
   callApi = (requestParams) => {
     // mock output
-    const data = {
-      count: 2,
-      results: [
-        {name: 'fake thing 1', url: 'http://fakethings.com/1'},
-        {name: 'fake thing 2', url: 'http://fakethings.com/2'},
-      ],
-    };
+    request(this.state.requestParams.method.toString(), this.state.requestParams.url.toString())
+    .then(results => {
+      const data = results;
+    });
+    // const data = {
+    //   count: 2,
+    //   results: [
+    //     {name: 'fake thing 1', url: 'http://fakethings.com/1'},
+    //     {name: 'fake thing 2', url: 'http://fakethings.com/2'},
+    //   ],
+    // };
     this.setState({data, requestParams});
   }
 
@@ -37,7 +43,7 @@ class App extends React.Component {
         <Header />
         <div>Request Method: {this.state.requestParams.method}</div>
         <div>URL: {this.state.requestParams.url}</div>
-        <Form handleApiCall={this.callApi} />
+        <Form handleApiCall={this.callApi}/>
         <Results data={this.state.data} />
         <Footer />
       </React.Fragment>

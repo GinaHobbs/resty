@@ -6,7 +6,8 @@ function Form(props) {
     e.preventDefault();
     const formData = {
       method:'GET',
-      url: 'https://pokeapi.co/api/v2/pokemon',
+      // url: 'https://pokeapi.co/api/v2/pokemon',
+      url: e.target.value
     };
     props.handleApiCall(formData);
   }
@@ -20,11 +21,12 @@ function Form(props) {
             <button type="submit">GO!</button>
           </label>
           <label className="methods">
-            <span id="get">GET</span>
-            <span id="post">POST</span>
-            <span id="put">PUT</span>
-            <span id="delete">DELETE</span>
+            <button id="get">GET</button>
+            <button id="post">POST</button>
+            <button id="put">PUT</button>
+            <button id="delete">DELETE</button>
           </label>
+          <input type='text' name='JSON' placeholder='JSON'/>
         </form>
       </>
   )
