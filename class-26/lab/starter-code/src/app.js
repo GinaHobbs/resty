@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import request from 'superagent'
 
 import './app.scss';
@@ -16,16 +16,16 @@ function App() {
 
   const callApi = (requestParams) => {
     // mock output
-    const data = {
-      count: 2,
-      results: [
-        {name: 'fake thing 1', url: 'http://fakethings.com/1'},
-        {name: 'fake thing 2', url: 'http://fakethings.com/2'},
-      ],
-    };
-    setData(data)
+    request[requestParams.method](requestParams.url)
+    .then(res => {
+      setData(res.body)
+    });
     setRequestParams(requestParams)
   }
+
+  (request.params) ? useEffect((requestParams) => {
+    callApi(requestParams)
+  }) : null
 
   return (
     <React.Fragment>
@@ -40,41 +40,3 @@ function App() {
 }
 
 export default App;
-
-// class App extends React.Component {
-
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       data: null,
-//       requestParams: {},
-//     };
-//   }
-
-//   callApi = (requestParams) => {
-//     // mock output
-//     const data = {
-//       count: 2,
-//       results: [
-//         {name: 'fake thing 1', url: 'http://fakethings.com/1'},
-//         {name: 'fake thing 2', url: 'http://fakethings.com/2'},
-//       ],
-//     };
-//     this.setState({data, requestParams});
-//   }
-
-//   render() {
-//     return (
-//       <React.Fragment>
-//         <Header />
-//         <div>Request Method: {this.state.requestParams.method}</div>
-//         <div>URL: {this.state.requestParams.url}</div>
-//         <Form handleApiCall={this.callApi}/>
-//         <Results data={this.state.data} />
-//         <Footer />
-//       </React.Fragment>
-//     );
-//   }
-// }
-
-// export default App;

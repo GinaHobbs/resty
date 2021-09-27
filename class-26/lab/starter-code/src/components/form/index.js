@@ -31,7 +31,6 @@ function Form(props) {
             <button id='put' name='method' type='radio' value='put' onClick={handleChange}>PUT</button>
             <button id='delete' name='method' type='radio' value='delete' onClick={handleChange}>DELETE</button>
           </label>
-          <input type='text' name='JSON' placeholder='JSON'/>
         </form>
       </>
   )
